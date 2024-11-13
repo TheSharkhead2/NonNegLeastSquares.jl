@@ -55,7 +55,7 @@ function nonneg_lsq(
         return nnls(A, B; kwargs...)
     elseif alg == :fnnls
         return fnnls(A, B; gram=gram, kwargs...)
-    elseif alg == :pivot && variant == :cache
+    elseif alg == :pivot && variant == :cache || alg == :pivot_cache
         return pivot_cache(A, B; gram=gram, kwargs...)
     elseif alg == :pivot && variant == :comb
         return pivot_comb(A, B; kwargs...)

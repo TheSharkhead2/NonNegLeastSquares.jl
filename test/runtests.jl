@@ -6,7 +6,7 @@ using SparseArrays
 #test specific
 using Random
 using PyCall
-const pyopt = pyimport_conda("scipy.optimize", "scipy")
+const pyopt = pyimport("scipy.opimize")
 
 function test_case1()
     A = [ 0.53879488  0.65816267
