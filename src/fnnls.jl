@@ -34,6 +34,7 @@ function fnnls(AtA,
     #   (b) ∂f/∂x = A' * (b - A*x) > 0 for all nonpositive elements of x
     iter = 0
     while sum(P)<n && any(w[(!).(P)] .> tol) && iter < max_iter
+        @info "fnnls iter count: $iter"
 
         # find i that maximizes w, restricting i to indices not in P
         # Note: the while loop condition guarantees at least one w[~P]>0
