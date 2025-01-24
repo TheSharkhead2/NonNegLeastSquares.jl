@@ -34,8 +34,6 @@ function fnnls(AtA,
     #   (b) ∂f/∂x = A' * (b - A*x) > 0 for all nonpositive elements of x
     iter = 0
     while sum(P)<n && any(w[(!).(P)] .> tol) && iter < max_iter
-        @info "fnnls iter count: $iter"
-
         # find i that maximizes w, restricting i to indices not in P
         # Note: the while loop condition guarantees at least one w[~P]>0
         i = argmax(w .* (!).(P))
@@ -46,10 +44,8 @@ function fnnls(AtA,
         # Solve least-squares problem, with zeros for columns/elements not in P
         # s[P] = AtA[P,P] \ Atb[P]
         s[P] = qmr(AtA[P,P], Atb[P])[1]
-        @info "QMR done"
         s[(!).(P)] .= zero(eltype(s)) # zero out elements not in P
 
-        @info "Loop started"
         # Inner loop: deal with negative elements of s
         while any(s[P].<=tol) && iter < max_iter
             iter += 1
