@@ -68,7 +68,8 @@ function fnnls(AtA,
             end
 
             # Solve least-squares problem again, zeroing nonpositive columns
-            s[P] = AtA[P,P] \ Atb[P]
+            # s[P] = AtA[P,P] \ Atb[P]
+            s[P] = qmr(AtA[P,P], Atb[P])[1]
             s[(!).(P)] .= zero(eltype(s)) # zero out elements not in P
         end
 
